@@ -8,7 +8,7 @@ namespace VetAPI.Controllers;
 public class MedicoController : ControllerBase
 {    private readonly ILogger<MedicoController> _logger;
 
-    public ClienteController(ILogger<MedicoController> logger)
+    public MedicoController(ILogger<MedicoController> logger)
     {
         _logger = logger;
     }

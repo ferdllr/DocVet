@@ -8,7 +8,7 @@ namespace VetAPI.Controllers;
 public class EstadoAnimalController : ControllerBase
 {    private readonly ILogger<EstadoAnimalController> _logger;
 
-    public ClienteController(ILogger<EstadoAnimalController> logger)
+    public EstadoAnimalController(ILogger<EstadoAnimalController> logger)
     {
         _logger = logger;
     }
