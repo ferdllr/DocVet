@@ -1,7 +1,13 @@
-namespace VetAPI.Models;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
+namespace VetAPI.Models;
 public class Contato
 {
-    public string email{ get; set; }
-    public List<string> telefones { get; set; }
+    //declaração de chave primaria
+    [Key]
+    public int? Id { get; set; }
+    public string? Telefones { get; set; }
+    public string? Email{ get; set; }
+    
 }

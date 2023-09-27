@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\Pichau\\Documents\\Dev\\DocVet\\VetAPI\\VetAPI.csproj": {}
+    "D:\\DocVet\\DocVet\\VetAPI\\VetAPI.csproj": {}
   },
   "projects": {
-    "c:\\Users\\Pichau\\Documents\\Dev\\DocVet\\VetAPI\\VetAPI.csproj": {
+    "D:\\DocVet\\DocVet\\VetAPI\\VetAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\Pichau\\Documents\\Dev\\DocVet\\VetAPI\\VetAPI.csproj",
+        "projectUniqueName": "D:\\DocVet\\DocVet\\VetAPI\\VetAPI.csproj",
         "projectName": "VetAPI",
-        "projectPath": "c:\\Users\\Pichau\\Documents\\Dev\\DocVet\\VetAPI\\VetAPI.csproj",
-        "packagesPath": "C:\\Users\\Pichau\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\Pichau\\Documents\\Dev\\DocVet\\VetAPI\\obj\\",
+        "projectPath": "D:\\DocVet\\DocVet\\VetAPI\\VetAPI.csproj",
+        "packagesPath": "C:\\Users\\ferna\\.nuget\\packages\\",
+        "outputPath": "D:\\DocVet\\DocVet\\VetAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Pichau\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ferna\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -44,6 +44,24 @@
               "target": "Package",
               "version": "[7.0.5, )"
             },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.11, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.11, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[7.0.11, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools.DotNet": {
+              "target": "Package",
+              "version": "[2.0.3, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.4.0, )"
@@ -68,7 +86,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     }
