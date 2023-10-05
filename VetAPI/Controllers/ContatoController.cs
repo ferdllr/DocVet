@@ -50,18 +50,21 @@ public class ContatoController : ControllerBase
         return contatoTemp;
     }
     
-    //alterar não funcionando
     [HttpPut()]
     [Route("alterar")]
     public async Task<ActionResult> Alterar(Contato contato)
     {
+        try{
         if(_dbContext is null) return NotFound();
-        if(_dbContext.Contato is null) return NotFound();
-        var contatoTemp = await _dbContext.Contato.FindAsync(contato.Id);
-        if(contatoTemp is null) return NotFound();       
+        if(_dbContext.Contato is null) return NotFound();      
         _dbContext.Contato.Update(contato);
         await _dbContext.SaveChangesAsync();
         return Ok();
+        }
+        catch{
+            return BadRequest();
+        }
+        
     }
 
     [HttpDelete()]

@@ -53,18 +53,21 @@ public class FuncionarioController : ControllerBase
     }
 
 
-    //alterar não funcionando
     [HttpPut()]
     [Route("alterar")]
     public async Task<ActionResult> Alterar(Funcionario funcionario)
     {
+        try{
         if(_dbContext is null) return NotFound();
-        if(_dbContext.Funcionario is null) return NotFound();
-        var funcionarioTemp = await _dbContext.Funcionario.FindAsync(funcionario.Id);
-        if(funcionarioTemp is null) return NotFound();       
+        if(_dbContext.Funcionario is null) return NotFound();      
         _dbContext.Funcionario.Update(funcionario);
         await _dbContext.SaveChangesAsync();
         return Ok();
+        }
+        catch{
+            return BadRequest();
+        }
+        
     }
 
     [HttpDelete()]

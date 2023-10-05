@@ -11,8 +11,8 @@ using VetAPI.Data;
 namespace VetAPI.Migrations
 {
     [DbContext(typeof(DocVetDbContext))]
-    [Migration("20230927164748_Funcionariokey")]
-    partial class Funcionariokey
+    [Migration("20231005164737_PrimeiraMigration")]
+    partial class PrimeiraMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -60,6 +60,33 @@ namespace VetAPI.Migrations
                     b.HasIndex("ContatoId");
 
                     b.ToTable("Funcionario");
+                });
+
+            modelBuilder.Entity("VetAPI.Models.Medicamento", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("Ciclo")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Miligrama")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("TarjaMedicamento")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TipoMedicamento")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Medicamento");
                 });
 
             modelBuilder.Entity("VetAPI.Models.Funcionario", b =>

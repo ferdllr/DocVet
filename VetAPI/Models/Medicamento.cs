@@ -1,8 +1,9 @@
+using System.ComponentModel.DataAnnotations;
 namespace VetAPI.Models;
 
 public class Medicamento
 {
-    public enum Tipo
+    public enum TipoMed
     {
         Fitoterápico,
         Alopático,
@@ -19,10 +20,10 @@ public class Medicamento
         TarjaPreta,
         TarjaAmarela
     }
-
+    [Key]
     public int Id { get; set; }
     public string Nome { get; set; }
-    public Tipo TipoMedicamento { get; set; }
+    public TipoMed TipoMedicamento { get; set; }
     public int Miligrama { get; set; }
     public Tarja TarjaMedicamento { get; set; }
     public DateTime Ciclo { get; set; }
