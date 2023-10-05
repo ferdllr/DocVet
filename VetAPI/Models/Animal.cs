@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace VetAPI.Models;
 
@@ -16,6 +17,8 @@ public class Animal
         Macho,
         Femea
     }
+
+    [Key]
     public int Id { get; set; }
     public string Nome { get; set; }
     public Especie EspecieAnimal { get; set; }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VetAPI.Data;
 
@@ -10,9 +11,11 @@ using VetAPI.Data;
 namespace VetAPI.Migrations
 {
     [DbContext(typeof(DocVetDbContext))]
-    partial class DocVetDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231005232833_EstadoAnimalDB")]
+    partial class EstadoAnimalDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.11");
@@ -79,9 +82,6 @@ namespace VetAPI.Migrations
                     b.Property<int>("GravidadeDoAnimal")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("ProntuarioId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("descricao")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -90,8 +90,6 @@ namespace VetAPI.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("id");
-
-                    b.HasIndex("ProntuarioId");
 
                     b.ToTable("EstadoAnimal");
                 });
@@ -137,9 +135,6 @@ namespace VetAPI.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("ProntuarioId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("TarjaMedicamento")
                         .HasColumnType("INTEGER");
 
@@ -148,28 +143,7 @@ namespace VetAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProntuarioId");
-
                     b.ToTable("Medicamento");
-                });
-
-            modelBuilder.Entity("VetAPI.Models.Prontuario", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("AnimalId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("Data")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AnimalId");
-
-                    b.ToTable("Prontuario");
                 });
 
             modelBuilder.Entity("VetAPI.Models.Tutor", b =>
@@ -210,13 +184,6 @@ namespace VetAPI.Migrations
                     b.Navigation("tutor");
                 });
 
-            modelBuilder.Entity("VetAPI.Models.EstadoAnimal", b =>
-                {
-                    b.HasOne("VetAPI.Models.Prontuario", null)
-                        .WithMany("EstadosAnimais")
-                        .HasForeignKey("ProntuarioId");
-                });
-
             modelBuilder.Entity("VetAPI.Models.Funcionario", b =>
                 {
                     b.HasOne("VetAPI.Models.Contato", "Contato")
@@ -224,24 +191,6 @@ namespace VetAPI.Migrations
                         .HasForeignKey("ContatoId");
 
                     b.Navigation("Contato");
-                });
-
-            modelBuilder.Entity("VetAPI.Models.Medicamento", b =>
-                {
-                    b.HasOne("VetAPI.Models.Prontuario", null)
-                        .WithMany("Medicamentos")
-                        .HasForeignKey("ProntuarioId");
-                });
-
-            modelBuilder.Entity("VetAPI.Models.Prontuario", b =>
-                {
-                    b.HasOne("VetAPI.Models.Animal", "Animal")
-                        .WithMany()
-                        .HasForeignKey("AnimalId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Animal");
                 });
 
             modelBuilder.Entity("VetAPI.Models.Tutor", b =>
@@ -253,13 +202,6 @@ namespace VetAPI.Migrations
                         .IsRequired();
 
                     b.Navigation("Contato");
-                });
-
-            modelBuilder.Entity("VetAPI.Models.Prontuario", b =>
-                {
-                    b.Navigation("EstadosAnimais");
-
-                    b.Navigation("Medicamentos");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace VetAPI.Models;
 
 public class EstadoAnimal
@@ -10,7 +12,7 @@ public class EstadoAnimal
         Laranja,
         Vermelho
     }
-
+    [Key]
     public int id { get; set; }
     public Gravidade GravidadeDoAnimal { get; set; }
     public DateTime horario { get; set; }
