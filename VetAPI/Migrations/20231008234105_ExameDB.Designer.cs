@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VetAPI.Data;
 
@@ -10,9 +11,11 @@ using VetAPI.Data;
 namespace VetAPI.Migrations
 {
     [DbContext(typeof(DocVetDbContext))]
-    partial class DocVetDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231008234105_ExameDB")]
+    partial class ExameDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.11");
@@ -96,26 +99,6 @@ namespace VetAPI.Migrations
                     b.ToTable("EstadoAnimal");
                 });
 
-            modelBuilder.Entity("VetAPI.Models.Exame", b =>
-                {
-                    b.Property<int?>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime?>("Data")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Observacao")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("TipoExame")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Exame");
-                });
-
             modelBuilder.Entity("VetAPI.Models.Funcionario", b =>
                 {
                     b.Property<int?>("Id")
@@ -139,27 +122,6 @@ namespace VetAPI.Migrations
                     b.HasIndex("ContatoId");
 
                     b.ToTable("Funcionario");
-                });
-
-            modelBuilder.Entity("VetAPI.Models.HistoricoDoAnimal", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("AnimalId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("TutorId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AnimalId");
-
-                    b.HasIndex("TutorId");
-
-                    b.ToTable("HistoricoDoAnimal");
                 });
 
             modelBuilder.Entity("VetAPI.Models.Medicamento", b =>
@@ -194,26 +156,6 @@ namespace VetAPI.Migrations
                     b.ToTable("Medicamento");
                 });
 
-            modelBuilder.Entity("VetAPI.Models.Procedimento", b =>
-                {
-                    b.Property<int?>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("TipoProcedimento")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("descricao")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("nome")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Procedimento");
-                });
-
             modelBuilder.Entity("VetAPI.Models.Prontuario", b =>
                 {
                     b.Property<int>("Id")
@@ -226,14 +168,9 @@ namespace VetAPI.Migrations
                     b.Property<DateTime>("Data")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("HistoricoDoAnimalId")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AnimalId");
-
-                    b.HasIndex("HistoricoDoAnimalId");
 
                     b.ToTable("Prontuario");
                 });
@@ -292,21 +229,6 @@ namespace VetAPI.Migrations
                     b.Navigation("Contato");
                 });
 
-            modelBuilder.Entity("VetAPI.Models.HistoricoDoAnimal", b =>
-                {
-                    b.HasOne("VetAPI.Models.Animal", "Animal")
-                        .WithMany()
-                        .HasForeignKey("AnimalId");
-
-                    b.HasOne("VetAPI.Models.Tutor", "Tutor")
-                        .WithMany()
-                        .HasForeignKey("TutorId");
-
-                    b.Navigation("Animal");
-
-                    b.Navigation("Tutor");
-                });
-
             modelBuilder.Entity("VetAPI.Models.Medicamento", b =>
                 {
                     b.HasOne("VetAPI.Models.Prontuario", null)
@@ -322,10 +244,6 @@ namespace VetAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("VetAPI.Models.HistoricoDoAnimal", null)
-                        .WithMany("prontuarios")
-                        .HasForeignKey("HistoricoDoAnimalId");
-
                     b.Navigation("Animal");
                 });
 
@@ -338,11 +256,6 @@ namespace VetAPI.Migrations
                         .IsRequired();
 
                     b.Navigation("Contato");
-                });
-
-            modelBuilder.Entity("VetAPI.Models.HistoricoDoAnimal", b =>
-                {
-                    b.Navigation("prontuarios");
                 });
 
             modelBuilder.Entity("VetAPI.Models.Prontuario", b =>

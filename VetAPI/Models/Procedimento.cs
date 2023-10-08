@@ -1,16 +1,18 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace VetAPI.Models;
 
 public class Procedimento
 {
-    public enum Tipo
+    public enum TipoProc
     {
         Curativo,
         Cistosintese,
         Toracocintese
     }
-
-    public int id { get; set; }
-    public string nome { get; set; }
-    public Tipo TipoProcedimento { get; set; }
-    public string descricao { get; set; }
+    [Key]
+    public int? Id { get; set; }
+    public string? nome { get; set; }
+    public TipoProc? TipoProcedimento { get; set; }
+    public string? descricao { get; set; }
 }

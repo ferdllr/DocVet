@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VetAPI.Data;
 
@@ -10,9 +11,11 @@ using VetAPI.Data;
 namespace VetAPI.Migrations
 {
     [DbContext(typeof(DocVetDbContext))]
-    partial class DocVetDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231008234525_HistoricoDoAnimalDB")]
+    partial class HistoricoDoAnimalDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.11");
@@ -192,26 +195,6 @@ namespace VetAPI.Migrations
                     b.HasIndex("ProntuarioId");
 
                     b.ToTable("Medicamento");
-                });
-
-            modelBuilder.Entity("VetAPI.Models.Procedimento", b =>
-                {
-                    b.Property<int?>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("TipoProcedimento")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("descricao")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("nome")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Procedimento");
                 });
 
             modelBuilder.Entity("VetAPI.Models.Prontuario", b =>
