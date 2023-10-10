@@ -3,7 +3,7 @@ namespace VetAPI.Models;
 
 public class Exame
 {
-    public enum Tipo
+    public enum TipoExam
     {
         Hemograma,
         Radiografia,
@@ -12,7 +12,7 @@ public class Exame
     }
     [Key]
     public int? Id { get; set;}
-    public Tipo? TipoExame { get; set;}
+    public TipoExam? TipoExame { get; set;}
     public DateTime? Data { get; set;}
     public string? Observacao {get; set;}
     

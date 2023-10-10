@@ -8,5 +8,5 @@ public class HistoricoDoAnimal
     public int Id { get; set; }
     public Tutor? Tutor { get; set; }
     public Animal? Animal { get; set; }
-    public List<Prontuario>? prontuarios { get; set;}
+    public List<Prontuario>? Prontuarios { get; set;}
 }

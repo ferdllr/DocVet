@@ -13,8 +13,8 @@ public class EstadoAnimal
         Vermelho
     }
     [Key]
-    public int id { get; set; }
+    public int Id { get; set; }
     public Gravidade GravidadeDoAnimal { get; set; }
-    public DateTime horario { get; set; }
+    public DateTime Horario { get; set; }
     public string descricao { get; set; }
 }

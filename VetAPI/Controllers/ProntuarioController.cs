@@ -10,7 +10,7 @@ namespace VetAPI.Controllers;
 [Route("[controller]")]
 public class ProntuarioController : ControllerBase
 {    
- 
+    //contexto da database, onde realiza buscas, incrementações e decrementações
     private DocVetDbContext? _dbContext;
  
     public ProntuarioController(DocVetDbContext context)
@@ -22,8 +22,13 @@ public class ProntuarioController : ControllerBase
     [Route("cadastrar")]
     public async Task<ActionResult> Cadastrar(Prontuario prontuario)
     {
+        //teste para verificar se a conexão com o banco de dados esta funcionando e se ele existe (caso não, retorna NotFound)
         if(_dbContext is null) return NotFound();
         if(_dbContext.Prontuario is null) return NotFound();
+        //verificando se o Id inserido na(s) classe(s) relacionada(s) ja existe (caso exista, o atributo e definido pela classe ja existente)
+        var animalTemp = await _dbContext.Animal.FindAsync(prontuario.Animal.Id);
+        if (animalTemp != null) {prontuario.Animal = animalTemp;}
+        //cadastrando no banco de dados
         await _dbContext.AddAsync(prontuario);
         await _dbContext.SaveChangesAsync();
         return Created("",prontuario);
@@ -54,6 +59,7 @@ public class ProntuarioController : ControllerBase
     [Route("alterar")]
     public async Task<ActionResult> Alterar(Prontuario prontuario)
     {
+        //tratamento de erro com try/catch
         try{
             if(_dbContext is null) return NotFound();
             if(_dbContext.Prontuario is null) return NotFound();      
@@ -73,6 +79,7 @@ public class ProntuarioController : ControllerBase
         if(_dbContext is null) return NotFound();
         if(_dbContext.Prontuario is null) return NotFound();
         var prontuarioTemp = await _dbContext.Prontuario.FindAsync(id);
+        //caso o id inserido não existir, vai retornar notfound
         if(prontuarioTemp is null) return NotFound();
         _dbContext.Remove(prontuarioTemp);
         await _dbContext.SaveChangesAsync();

@@ -10,7 +10,7 @@ namespace VetAPI.Controllers;
 [Route("[controller]")]
 public class EstadoAnimalController : ControllerBase
 {    
- 
+    //contexto da database, onde realiza buscas, incrementações e decrementações
     private DocVetDbContext? _dbContext;
  
     public EstadoAnimalController(DocVetDbContext context)
@@ -22,8 +22,10 @@ public class EstadoAnimalController : ControllerBase
     [Route("cadastrar")]
     public async Task<ActionResult> Cadastrar(EstadoAnimal estadoAnimal)
     {
+        //teste para verificar se a conexão com o banco de dados esta funcionando e se ele existe (caso não, retorna NotFound)
         if(_dbContext is null) return NotFound();
         if(_dbContext.EstadoAnimal is null) return NotFound();
+        //cadastrando no banco de dados
         await _dbContext.AddAsync(estadoAnimal);
         await _dbContext.SaveChangesAsync();
         return Created("",estadoAnimal);
@@ -54,6 +56,7 @@ public class EstadoAnimalController : ControllerBase
     [Route("alterar")]
     public async Task<ActionResult> Alterar(EstadoAnimal estadoAnimal)
     {
+        //tratamento de erro com try/catch
         try{
             if(_dbContext is null) return NotFound();
             if(_dbContext.EstadoAnimal is null) return NotFound();      
@@ -73,6 +76,7 @@ public class EstadoAnimalController : ControllerBase
         if(_dbContext is null) return NotFound();
         if(_dbContext.EstadoAnimal is null) return NotFound();
         var estadoAnimalTemp = await _dbContext.EstadoAnimal.FindAsync(id);
+        //caso o id inserido não existir, vai retornar notfound
         if(estadoAnimalTemp is null) return NotFound();
         _dbContext.Remove(estadoAnimalTemp);
         await _dbContext.SaveChangesAsync();

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VetAPI.Data;
 
@@ -10,9 +11,11 @@ using VetAPI.Data;
 namespace VetAPI.Migrations
 {
     [DbContext(typeof(DocVetDbContext))]
-    partial class DocVetDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231009234425_CorrigindoID")]
+    partial class CorrigindoID
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.11");
@@ -171,8 +174,8 @@ namespace VetAPI.Migrations
                     b.Property<DateTime>("Ciclo")
                         .HasColumnType("TEXT");
 
-                    b.Property<float>("Miligrama")
-                        .HasColumnType("REAL");
+                    b.Property<int>("Miligrama")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Nome")
                         .IsRequired()

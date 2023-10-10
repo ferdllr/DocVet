@@ -10,7 +10,7 @@ namespace VetAPI.Controllers;
 [Route("[controller]")]
 public class MedicamentoController : ControllerBase
 {    
-
+    //contexto da database, onde realiza buscas, incrementações e decrementações
     private DocVetDbContext? _dbContext;
 
     public MedicamentoController(DocVetDbContext context)
@@ -22,8 +22,10 @@ public class MedicamentoController : ControllerBase
     [Route("cadastrar")]
     public async Task<ActionResult> Cadastrar(Medicamento medicamento)
     {
+        //teste para verificar se a conexão com o banco de dados esta funcionando e se ele existe (caso não, retorna NotFound)
         if(_dbContext is null) return NotFound();
         if(_dbContext.Medicamento is null) return NotFound();
+        //cadastrando no banco de dados
         await _dbContext.AddAsync(medicamento);
         await _dbContext.SaveChangesAsync();
         return Created("",medicamento);
@@ -42,6 +44,7 @@ public class MedicamentoController : ControllerBase
     [Route("alterar")]
     public async Task<ActionResult> Alterar(Medicamento medicamento)
     {
+        //tratamento de erro com try/catch
         try{
             if(_dbContext is null) return NotFound();
             if(_dbContext.Medicamento is null) return NotFound();      
@@ -61,6 +64,7 @@ public class MedicamentoController : ControllerBase
         if(_dbContext is null) return NotFound();
         if(_dbContext.Medicamento is null) return NotFound();
         var medicamentoTemp = await _dbContext.Medicamento.FindAsync(id);
+        //caso o id inserido não existir, vai retornar notfound
         if(medicamentoTemp is null) return NotFound();
         _dbContext.Remove(medicamentoTemp);
         await _dbContext.SaveChangesAsync();

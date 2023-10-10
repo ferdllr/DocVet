@@ -10,7 +10,7 @@ namespace VetAPI.Controllers;
 [Route("[controller]")]
 public class ProcedimentoController : ControllerBase
 {    
- 
+    //contexto da database, onde realiza buscas, incrementações e decrementações
     private DocVetDbContext? _dbContext;
  
     public ProcedimentoController(DocVetDbContext context)
@@ -22,8 +22,10 @@ public class ProcedimentoController : ControllerBase
     [Route("cadastrar")]
     public async Task<ActionResult> Cadastrar(Procedimento procedimento)
     {
+        //teste para verificar se a conexão com o banco de dados esta funcionando e se ele existe (caso não, retorna NotFound)
         if(_dbContext is null) return NotFound();
         if(_dbContext.Procedimento is null) return NotFound();
+        //cadastrando no banco de dados
         await _dbContext.AddAsync(procedimento);
         await _dbContext.SaveChangesAsync();
         return Created("",procedimento);
@@ -55,6 +57,7 @@ public class ProcedimentoController : ControllerBase
     [Route("alterar")]
     public async Task<ActionResult> Alterar(Procedimento procedimento)
     {
+        //tratamento de erro com try/catch
         try{
             if(_dbContext is null) return NotFound();
             if(_dbContext.Procedimento is null) return NotFound();      
@@ -74,6 +77,7 @@ public class ProcedimentoController : ControllerBase
         if(_dbContext is null) return NotFound();
         if(_dbContext.Procedimento is null) return NotFound();
         var procedimentoTemp = await _dbContext.Procedimento.FindAsync(id);
+        //caso o id inserido não existir, vai retornar notfound
         if(procedimentoTemp is null) return NotFound();
         _dbContext.Remove(procedimentoTemp);
         await _dbContext.SaveChangesAsync();

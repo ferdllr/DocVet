@@ -4,7 +4,7 @@ namespace VetAPI.Models;
 
 public class Funcionario
 {
-    public enum Tipo
+    public enum TipoFun
     {
         Ortopedista,
         Neurologista,
@@ -18,6 +18,6 @@ public class Funcionario
     public string? Nome { get; set; }
     public string? Cpf { get; set; }
     public Contato? Contato { get; set; }
-    public Tipo? TipoFuncionario { get; set; }
+    public TipoFun? TipoFuncionario { get; set; }
 
 }

@@ -24,7 +24,7 @@ public class Medicamento
     public int Id { get; set; }
     public string Nome { get; set; }
     public TipoMed TipoMedicamento { get; set; }
-    public int Miligrama { get; set; }
+    public float Miligrama { get; set; }
     public Tarja TarjaMedicamento { get; set; }
     public DateTime Ciclo { get; set; }
 

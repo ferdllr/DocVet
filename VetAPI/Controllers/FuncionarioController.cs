@@ -9,6 +9,7 @@ namespace VetAPI.Controllers;
 [Route("[controller]")]
 public class FuncionarioController : ControllerBase
 {    
+    //contexto da database, onde realiza buscas, incrementações e decrementações
     private DocVetDbContext? _dbContext;
 
     public FuncionarioController(DocVetDbContext context)
@@ -20,12 +21,13 @@ public class FuncionarioController : ControllerBase
     [Route("cadastrar")]
     public async Task<ActionResult> Cadastrar(Funcionario funcionario)
     {
+        //teste para verificar se a conexão com o banco de dados esta funcionando e se ele existe (caso não, retorna NotFound)
         if(_dbContext is null) return NotFound();
         if(_dbContext.Funcionario is null) return NotFound();
-        // buscando outra classe referenciada (contato)
+        //verificando se o Id inserido na(s) classe(s) relacionada(s) ja existe (caso exista, o atributo e definido pela classe ja existente)
         var contatoTemp = await _dbContext.Contato.FindAsync(funcionario.Contato.Id);
-        //definindo o contato buscado (caso null, o contato apenas sera null)
-        funcionario.Contato = contatoTemp;
+        if (contatoTemp != null){funcionario.Contato = contatoTemp;}
+        //cadastrando no banco de dados
         await _dbContext.AddAsync(funcionario);
         await _dbContext.SaveChangesAsync();
         return Created("",funcionario);
@@ -57,6 +59,7 @@ public class FuncionarioController : ControllerBase
     [Route("alterar")]
     public async Task<ActionResult> Alterar(Funcionario funcionario)
     {
+        //tratamento de erro com try/catch
         try{
         if(_dbContext is null) return NotFound();
         if(_dbContext.Funcionario is null) return NotFound();      
@@ -77,6 +80,7 @@ public class FuncionarioController : ControllerBase
         if(_dbContext is null) return NotFound();
         if(_dbContext.Funcionario is null) return NotFound();
         var funcionarioTemp = await _dbContext.Funcionario.FindAsync(id);
+        //caso o id inserido não existir, vai retornar notfound
         if(funcionarioTemp is null) return NotFound();
         _dbContext.Remove(funcionarioTemp);
         await _dbContext.SaveChangesAsync();

@@ -10,7 +10,7 @@ namespace VetAPI.Controllers;
 [Route("[controller]")]
 public class TutorController : ControllerBase
 {    
- 
+    //contexto da database, onde realiza buscas, incrementações e decrementações
     private DocVetDbContext? _dbContext;
  
     public TutorController(DocVetDbContext context)
@@ -22,8 +22,13 @@ public class TutorController : ControllerBase
     [Route("cadastrar")]
     public async Task<ActionResult> Cadastrar(Tutor tutor)
     {
+        //teste para verificar se a conexão com o banco de dados esta funcionando e se ele existe (caso não, retorna NotFound)
         if(_dbContext is null) return NotFound();
         if(_dbContext.Tutor is null) return NotFound();
+        //verificando se o Id inserido na(s) classe(s) relacionada(s) ja existe (caso exista, o atributo e definido pela classe ja existente)
+        var contatoTemp = await _dbContext.Contato.FindAsync(tutor.Contato.Id);
+        if (contatoTemp != null){tutor.Contato = contatoTemp;}
+        //cadastrando no banco de dados
         await _dbContext.AddAsync(tutor);
         await _dbContext.SaveChangesAsync();
         return Created("",tutor);
@@ -54,6 +59,7 @@ public class TutorController : ControllerBase
     [Route("alterar")]
     public async Task<ActionResult> Alterar(Tutor tutor)
     {
+        //tratamento de erro com try/catch
         try{
             if(_dbContext is null) return NotFound();
             if(_dbContext.Tutor is null) return NotFound();      
@@ -73,6 +79,7 @@ public class TutorController : ControllerBase
         if(_dbContext is null) return NotFound();
         if(_dbContext.Tutor is null) return NotFound();
         var tutorTemp = await _dbContext.Tutor.FindAsync(id);
+        //caso o id inserido não existir, vai retornar notfound
         if(tutorTemp is null) return NotFound();
         _dbContext.Remove(tutorTemp);
         await _dbContext.SaveChangesAsync();

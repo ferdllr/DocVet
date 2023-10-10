@@ -10,7 +10,7 @@ namespace VetAPI.Controllers;
 [Route("[controller]")]
 public class ContatoController : ControllerBase
 {    
-
+    //contexto da database, onde realiza buscas, incrementações e decrementações
     private DocVetDbContext? _dbContext;
 
     public ContatoController(DocVetDbContext context)
@@ -22,8 +22,10 @@ public class ContatoController : ControllerBase
     [Route("cadastrar")]
     public async Task<ActionResult> Cadastrar(Contato contato)
     {
+        //teste para verificar se a conexão com o banco de dados esta funcionando e se ele existe (caso não, retorna NotFound)
         if(_dbContext is null) return NotFound();
         if(_dbContext.Contato is null) return NotFound();
+        //cadastrando no banco de dados
         await _dbContext.AddAsync(contato);
         await _dbContext.SaveChangesAsync();
         return Created("",contato);
@@ -54,6 +56,7 @@ public class ContatoController : ControllerBase
     [Route("alterar")]
     public async Task<ActionResult> Alterar(Contato contato)
     {
+        //tratamento de erro com try/catch
         try{
         if(_dbContext is null) return NotFound();
         if(_dbContext.Contato is null) return NotFound();      
@@ -74,6 +77,7 @@ public class ContatoController : ControllerBase
         if(_dbContext is null) return NotFound();
         if(_dbContext.Contato is null) return NotFound();
         var contatoTemp = await _dbContext.Contato.FindAsync(id);
+        //caso o id inserido não existir, vai retornar notfound
         if(contatoTemp is null) return NotFound();
         _dbContext.Remove(contatoTemp);
         await _dbContext.SaveChangesAsync();

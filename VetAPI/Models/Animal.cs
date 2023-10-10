@@ -25,7 +25,7 @@ public class Animal
     public string Raca { get; set; }
     public int Idade { get; set; }
     public Sexo SexoDoAnimal { get; set; }
-    public Tutor tutor { get; set; }
+    public Tutor Tutor { get; set; }
     public float Peso { get; set; }
 
 
