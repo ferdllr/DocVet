@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VetAPI.Data;
 
@@ -10,46 +11,14 @@ using VetAPI.Data;
 namespace VetAPI.Migrations
 {
     [DbContext(typeof(DocVetDbContext))]
-    partial class DocVetDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231010005736_VacinaDb")]
+    partial class VacinaDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.11");
-
-            modelBuilder.Entity("VetAPI.Models.Alimentacao", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("AnimalId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("DataHoraAlimentacao")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("FrequenciaRefeicoes")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Observacoes")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("QuantidadeFornecida")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("TipoAlimento")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AnimalId");
-
-                    b.ToTable("Alimentacao");
-                });
 
             modelBuilder.Entity("VetAPI.Models.Animal", b =>
                 {
@@ -331,17 +300,6 @@ namespace VetAPI.Migrations
                     b.HasIndex("AnimalId");
 
                     b.ToTable("Vacina");
-                });
-
-            modelBuilder.Entity("VetAPI.Models.Alimentacao", b =>
-                {
-                    b.HasOne("VetAPI.Models.Animal", "Animal")
-                        .WithMany()
-                        .HasForeignKey("AnimalId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Animal");
                 });
 
             modelBuilder.Entity("VetAPI.Models.Animal", b =>

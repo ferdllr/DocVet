@@ -16,6 +16,8 @@ public class DocVetDbContext : DbContext
     public DbSet<Exame>? Exame {get; set; }
     public DbSet<HistoricoDoAnimal>? HistoricoDoAnimal{get;set;}
     public DbSet<Procedimento>? Procedimento{get;set;}
+    public DbSet<Vacina>? Vacina { get; set; }
+    public DbSet<Alimentacao>? Alimentacao { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlite("DataSource=DocVet.db;Cache=Shared");
