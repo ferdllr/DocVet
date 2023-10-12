@@ -85,21 +85,14 @@ namespace VetAPI.Controller
         public async Task<IActionResult> Delete(int id)
         {
             var tutor = await _context.Tutors
-                .Include(t => t.Animais) // Inclua a lista de animais associados ao Tutor
+                .Include(t => t.Animais)
+                .Include(t => t.Contato)
                 .FirstOrDefaultAsync(t => t.TutorId == id);
 
             if (tutor == null) return NotFound("Tutor não encontrado.");
 
-            // Remover a referência do Contato associado ao Tutor
-            _context.Contatos.RemoveRange(_context.Contatos.Where(t => t.ContatoId == id));
-
-
-            // Remover a referência do Contato de todos os animais do Tutor
-            foreach (var animal in tutor.Animais)
-            {
-                _context.Animais.RemoveRange(_context.Animais.Where(t => t.AnimalId == animal.AnimalId));
-            }
-
+            tutor.Animais = null;
+            tutor.Contato = null;
             _context.Tutors.Remove(tutor);
             await _context.SaveChangesAsync();
 
