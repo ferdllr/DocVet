@@ -11,14 +11,45 @@ using VetAPI.Data;
 namespace VetAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231012213013_HistoricoDoAnimalDB")]
-    partial class HistoricoDoAnimalDB
+    [Migration("20231012223730_newdb")]
+    partial class newdb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.12");
+
+            modelBuilder.Entity("VetAPI.Models.Alimentacao", b =>
+                {
+                    b.Property<int>("AlimentacaoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("AnimalId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("DataHoraAlimentacao")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FrequenciaRefeicoes")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Observacoes")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("QuantidadeFornecida")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TipoAlimento")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("AlimentacaoId");
+
+                    b.HasIndex("AnimalId");
+
+                    b.ToTable("Alimentacaos");
+                });
 
             modelBuilder.Entity("VetAPI.Models.Animal", b =>
                 {
@@ -254,6 +285,46 @@ namespace VetAPI.Migrations
                     b.ToTable("Tutors");
                 });
 
+            modelBuilder.Entity("VetAPI.Models.Vacina", b =>
+                {
+                    b.Property<int>("VacinaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("AnimalId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("DataVacinação")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Lote")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Nome")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("PróximaDataReforço")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("VeterinárioResponsável")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("VacinaId");
+
+                    b.HasIndex("AnimalId");
+
+                    b.ToTable("Vacinas");
+                });
+
+            modelBuilder.Entity("VetAPI.Models.Alimentacao", b =>
+                {
+                    b.HasOne("VetAPI.Models.Animal", "Animal")
+                        .WithMany()
+                        .HasForeignKey("AnimalId");
+
+                    b.Navigation("Animal");
+                });
+
             modelBuilder.Entity("VetAPI.Models.Animal", b =>
                 {
                     b.HasOne("VetAPI.Models.Tutor", null)
@@ -306,6 +377,15 @@ namespace VetAPI.Migrations
                         .IsRequired();
 
                     b.Navigation("Contato");
+                });
+
+            modelBuilder.Entity("VetAPI.Models.Vacina", b =>
+                {
+                    b.HasOne("VetAPI.Models.Animal", "Animal")
+                        .WithMany()
+                        .HasForeignKey("AnimalId");
+
+                    b.Navigation("Animal");
                 });
 
             modelBuilder.Entity("VetAPI.Models.HistoricoDoAnimal", b =>

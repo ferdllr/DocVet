@@ -6026,11 +6026,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\DocVet\\VetAPI\\VetAPI.csproj",
+      "projectUniqueName": "D:\\antigo\\DocVet\\VetAPI\\VetAPI.csproj",
       "projectName": "VetAPI",
-      "projectPath": "D:\\DocVet\\VetAPI\\VetAPI.csproj",
+      "projectPath": "D:\\antigo\\DocVet\\VetAPI\\VetAPI.csproj",
       "packagesPath": "C:\\Users\\ferna\\.nuget\\packages\\",
-      "outputPath": "D:\\DocVet\\VetAPI\\obj\\",
+      "outputPath": "D:\\antigo\\DocVet\\VetAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\ferna\\AppData\\Roaming\\NuGet\\NuGet.Config",
