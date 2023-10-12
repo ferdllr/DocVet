@@ -1,12 +1,11 @@
-using Microsoft.EntityFrameworkCore;
 using VetAPI.Data;
-
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-//adicionar o contexto da database no projeto
-builder.Services.AddDbContext<DocVetDbContext>();
+builder.Services.AddDbContext<AppDbContext>();
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {

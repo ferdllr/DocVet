@@ -3,84 +3,87 @@ using VetAPI.Models;
 using VetAPI.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace VetAPI.Controllers;
-
-
-[ApiController]
-[Route("[controller]")]
-public class ContatoController : ControllerBase
-{    
-    //contexto da database, onde realiza buscas, incrementações e decrementações
-    private DocVetDbContext? _dbContext;
-
-    public ContatoController(DocVetDbContext context)
+namespace VetAPI.Controller
+{
+    [Route("Contato")]
+    [ApiController]
+    public class ContatoController: ControllerBase
     {
-        _dbContext = context;
+        private AppDbContext? _context;
+
+        public ContatoController(AppDbContext context)
+        {
+            _context = context;
+        }
+        
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Contato>>> Get()
+        {
+            if(_context.Contatos is null) return NotFound();
+            return await _context.Contatos.ToListAsync();
+        }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> Get(int id)
+    {
+        var contato = await _context.Contatos
+            .FirstOrDefaultAsync(f => f.ContatoId == id);
+
+        if (contato == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(contato);
     }
 
     [HttpPost]
-    [Route("cadastrar")]
-    public async Task<ActionResult> Cadastrar(Contato contato)
+    public async Task<IActionResult> Post([FromBody] Contato contato)
     {
-        //teste para verificar se a conexão com o banco de dados esta funcionando e se ele existe (caso não, retorna NotFound)
-        if(_dbContext is null) return NotFound();
-        if(_dbContext.Contato is null) return NotFound();
-        //cadastrando no banco de dados
-        await _dbContext.AddAsync(contato);
-        await _dbContext.SaveChangesAsync();
-        return Created("",contato);
+        if(_context.Contatos is null) return NotFound();
+        _context.Contatos.Add(contato);
+        await _context.SaveChangesAsync();
+        return Ok(contato);
+    }
+    [HttpPut]
+    public async Task<IActionResult> Put(int id, [FromBody] Contato contato)
+    {
+        if(_context.Contatos is null) return NotFound();
+        if(id != contato.ContatoId)return BadRequest();
+        _context.Entry(contato).State = EntityState.Modified;
+
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!_context.Contatos.Any(e => e.ContatoId == id))
+            {
+                return NotFound();
+            }
+
+        }
+        return Ok();
+    }
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var contato = await _context.Contatos.FindAsync(id);
+        if (contato == null)
+        {
+            return NotFound();
+        }
+        _context.Tutors.RemoveRange(_context.Tutors.Where(t => t.Contato.ContatoId == id));
+        _context.Funcionarios.RemoveRange(_context.Funcionarios.Where(f => f.Contato.ContatoId == id));
+
+        _context.Contatos.Remove(contato);
+        await _context.SaveChangesAsync();
+
+        return NoContent();
+    }
     }
 
-    [HttpGet]
-    [Route("listar")]
-    public async Task<ActionResult<IEnumerable<Contato>>> Listar()
-    {
-        if(_dbContext is null) return NotFound();
-        if(_dbContext.Contato is null) return NotFound();
-        return await _dbContext.Contato.ToListAsync();
-    }
-
-
-    [HttpGet]
-    [Route("buscar/{id}")]
-    public async Task<ActionResult<Contato>> Buscar(int id)
-    {
-        if(_dbContext is null) return NotFound();
-        if(_dbContext.Contato is null) return NotFound();
-        var contatoTemp = await _dbContext.Contato.FindAsync(id);
-        if(contatoTemp is null) return NotFound();
-        return contatoTemp;
-    }
     
-    [HttpPut()]
-    [Route("alterar")]
-    public async Task<ActionResult> Alterar(Contato contato)
-    {
-        //tratamento de erro com try/catch
-        try{
-        if(_dbContext is null) return NotFound();
-        if(_dbContext.Contato is null) return NotFound();      
-        _dbContext.Contato.Update(contato);
-        await _dbContext.SaveChangesAsync();
-        return Ok();
-        }
-        catch{
-            return BadRequest();
-        }
-        
-    }
 
-    [HttpDelete()]
-    [Route("excluir/{id}")]
-    public async Task<ActionResult> Excluir(int id)
-    {
-        if(_dbContext is null) return NotFound();
-        if(_dbContext.Contato is null) return NotFound();
-        var contatoTemp = await _dbContext.Contato.FindAsync(id);
-        //caso o id inserido não existir, vai retornar notfound
-        if(contatoTemp is null) return NotFound();
-        _dbContext.Remove(contatoTemp);
-        await _dbContext.SaveChangesAsync();
-        return Ok();
-    }
 }

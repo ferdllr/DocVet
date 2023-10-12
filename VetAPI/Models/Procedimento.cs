@@ -10,9 +10,8 @@ public class Procedimento
         Cistosintese,
         Toracocintese
     }
-    [Key]
-    public int? Id { get; set; }
-    public string? nome { get; set; }
+    public int? ProcedimentoId { get; set; }
+    public string? Nome { get; set; }
     public TipoProc? TipoProcedimento { get; set; }
-    public string? descricao { get; set; }
+    public string? Descricao { get; set; }
 }

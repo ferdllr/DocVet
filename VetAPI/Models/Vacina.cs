@@ -1,30 +1,17 @@
-using System;
-using System.ComponentModel.DataAnnotations;
-
 namespace VetAPI.Models
 {
     public class Vacina
     {
-        [Key]
-        public int Id { get; set; }
+        public int VacinaId { get; set; }
 
-        public string Nome { get; set; }
-
-        [Display(Name = "Data da Vacinação")]
-        [DataType(DataType.Date)]
+        public string? Nome { get; set; }
         public DateTime DataVacinação { get; set; }
+        public string? VeterinárioResponsável { get; set; }
 
-        [Display(Name = "Veterinário Responsável")]
-        public string VeterinárioResponsável { get; set; }
-
-        public string Lote { get; set; }
-
-        [Display(Name = "Próxima Data de Reforço")]
-        [DataType(DataType.Date)]
+        public string? Lote { get; set; }
         public DateTime PróximaDataReforço { get; set; }
 
         // Relação com o animal (caso cada vacina seja associada a um animal específico)
-        public int AnimalId { get; set; }
-        public Animal Animal { get; set; }
+        public Animal? Animal { get; set; }
     }
 }

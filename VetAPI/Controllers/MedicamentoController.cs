@@ -3,71 +3,83 @@ using VetAPI.Models;
 using VetAPI.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace VetAPI.Controllers;
-
-
-[ApiController]
-[Route("[controller]")]
-public class MedicamentoController : ControllerBase
-{    
-    //contexto da database, onde realiza buscas, incrementações e decrementações
-    private DocVetDbContext? _dbContext;
-
-    public MedicamentoController(DocVetDbContext context)
+namespace VetAPI.Controller
+{
+    [Route("Medicamento")]
+    [ApiController]
+    public class MedicamentoController : ControllerBase
     {
-        _dbContext = context;
-    }
+        private readonly AppDbContext _context;
 
-    [HttpPost]
-    [Route("cadastrar")]
-    public async Task<ActionResult> Cadastrar(Medicamento medicamento)
-    {
-        //teste para verificar se a conexão com o banco de dados esta funcionando e se ele existe (caso não, retorna NotFound)
-        if(_dbContext is null) return NotFound();
-        if(_dbContext.Medicamento is null) return NotFound();
-        //cadastrando no banco de dados
-        await _dbContext.AddAsync(medicamento);
-        await _dbContext.SaveChangesAsync();
-        return Created("",medicamento);
-    }
+        public MedicamentoController(AppDbContext context)
+        {
+            _context = context;
+        }
 
-    [HttpGet]
-    [Route("listar")]
-    public async Task<ActionResult<IEnumerable<Medicamento>>> Listar()
-    {
-        if(_dbContext is null) return NotFound();
-        if(_dbContext.Medicamento is null) return NotFound();
-        return await _dbContext.Medicamento.ToListAsync();
-    }
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Medicamento>>> Get()
+        {
+            if (_context.Medicamentos is null) return NotFound();
+            return await _context.Medicamentos.ToListAsync();
+        }
 
-    [HttpPut()]
-    [Route("alterar")]
-    public async Task<ActionResult> Alterar(Medicamento medicamento)
-    {
-        //tratamento de erro com try/catch
-        try{
-            if(_dbContext is null) return NotFound();
-            if(_dbContext.Medicamento is null) return NotFound();      
-            _dbContext.Medicamento.Update(medicamento);
-            await _dbContext.SaveChangesAsync();
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            var medicamento = await _context.Medicamentos
+                .FirstOrDefaultAsync(m => m.MedicamentoId == id);
+
+            if (medicamento == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(medicamento);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] Medicamento medicamento)
+        {
+            if (_context.Medicamentos is null) return NotFound();
+            _context.Medicamentos.Add(medicamento);
+            await _context.SaveChangesAsync();
+            return Ok(medicamento);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, [FromBody] Medicamento medicamento)
+        {
+            if (_context.Medicamentos is null) return NotFound();
+            if (id != medicamento.MedicamentoId) return BadRequest();
+            _context.Entry(medicamento).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!_context.Medicamentos.Any(e => e.MedicamentoId == id))
+                {
+                    return NotFound();
+                }
+            }
             return Ok();
         }
-        catch{
-            return BadRequest();
-        }
-    }
 
-    [HttpDelete()]
-    [Route("excluir/{id}")]
-    public async Task<ActionResult> Excluir(int id)
-    {
-        if(_dbContext is null) return NotFound();
-        if(_dbContext.Medicamento is null) return NotFound();
-        var medicamentoTemp = await _dbContext.Medicamento.FindAsync(id);
-        //caso o id inserido não existir, vai retornar notfound
-        if(medicamentoTemp is null) return NotFound();
-        _dbContext.Remove(medicamentoTemp);
-        await _dbContext.SaveChangesAsync();
-        return Ok();
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var medicamento = await _context.Medicamentos.FindAsync(id);
+            if (medicamento == null)
+            {
+                return NotFound();
+            }
+
+            _context.Medicamentos.Remove(medicamento);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
     }
 }

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VetAPI", "VetAPI.csproj", "{B4878BC5-0898-466C-8AD9-8046A62AF226}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VetAPI", "VetAPI.csproj", "{64623FEE-7225-4C50-9DEB-6FC390B7B748}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B4878BC5-0898-466C-8AD9-8046A62AF226}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B4878BC5-0898-466C-8AD9-8046A62AF226}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B4878BC5-0898-466C-8AD9-8046A62AF226}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B4878BC5-0898-466C-8AD9-8046A62AF226}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64623FEE-7225-4C50-9DEB-6FC390B7B748}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64623FEE-7225-4C50-9DEB-6FC390B7B748}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64623FEE-7225-4C50-9DEB-6FC390B7B748}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64623FEE-7225-4C50-9DEB-6FC390B7B748}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {54FD5DFB-DBE3-4C97-9034-D5E49DCAE05A}
+		SolutionGuid = {D62CD088-D22D-4E3D-9BA8-24453BB8E7EA}
 	EndGlobalSection
 EndGlobal

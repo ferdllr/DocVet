@@ -1,99 +1,91 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using VetAPI.Data;
 using VetAPI.Models;
+using VetAPI.Data;
+using Microsoft.EntityFrameworkCore;
 
-namespace VetAPI.Controllers
+namespace VetAPI.Controller
 {
+    [Route("Vacina")]
     [ApiController]
-    [Route("[controller]")]
     public class VacinaController : ControllerBase
     {
-        private DocVetDbContext _dbContext;
+        private readonly AppDbContext _context;
 
-        public VacinaController(DocVetDbContext context)
+        public VacinaController(AppDbContext context)
         {
-            _dbContext = context;
+            _context = context;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Vacina>>> Get()
+        {
+            if (_context.Vacinas is null) return NotFound();
+            return await _context.Vacinas.Include(v => v.Animal).ToListAsync();
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            var vacina = await _context.Vacinas
+                .Include(v => v.Animal)
+                .FirstOrDefaultAsync(v => v.VacinaId == id);
+
+            if (vacina == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(vacina);
         }
 
         [HttpPost]
-        [Route("cadastrar")]
-        public async Task<ActionResult> Cadastrar(Vacina vacina)
+        public async Task<IActionResult> Post([FromBody] Vacina vacina)
         {
-            if (_dbContext is null) return NotFound();
-            if (_dbContext.Vacina is null) return NotFound();
-
-            // Verifica se o animal relacionado existe
-            var animalTemp = await _dbContext.Animal.FindAsync(vacina.AnimalId);
-            if (animalTemp is null) return NotFound();
-
-            // Cadastra a vacina no banco de dados
-            await _dbContext.AddAsync(vacina);
-            await _dbContext.SaveChangesAsync();
-
-            return Created("", vacina);
+            if (_context.Vacinas is null) return NotFound();
+            var animalTemp = await _context.Animais.FindAsync(vacina.Animal.AnimalId);
+            if (animalTemp != null) vacina.Animal = animalTemp;
+            _context.Vacinas.Add(vacina);
+            await _context.SaveChangesAsync();
+            return Ok(vacina);
         }
 
-        [HttpGet]
-        [Route("listar")]
-        public async Task<ActionResult<IEnumerable<Vacina>>> Listar()
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, [FromBody] Vacina vacina)
         {
-            if (_dbContext is null) return NotFound();
-            if (_dbContext.Vacina is null) return NotFound();
+            if (_context.Vacinas is null) return NotFound();
+            if (id != vacina.VacinaId) return BadRequest();
+            var animalTemp = await _context.Animais.FindAsync(vacina.Animal.AnimalId);
+            if (animalTemp != null) vacina.Animal = animalTemp;
+            _context.Entry(vacina).State = EntityState.Modified;
+            _context.Entry(vacina.Animal).State = EntityState.Modified;
 
-            return await _dbContext.Vacina.ToListAsync();
-        }
-
-        [HttpGet]
-        [Route("buscar/{id}")]
-        public async Task<ActionResult<Vacina>> Buscar(int id)
-        {
-            if (_dbContext is null) return NotFound();
-            if (_dbContext.Vacina is null) return NotFound();
-
-            var vacinaTemp = await _dbContext.Vacina.FindAsync(id);
-            if (vacinaTemp is null) return NotFound();
-
-            return vacinaTemp;
-        }
-
-        [HttpPut]
-        [Route("alterar")]
-        public async Task<ActionResult> Alterar(Vacina vacina)
-        {
             try
             {
-                if (_dbContext is null) return NotFound();
-                if (_dbContext.Vacina is null) return NotFound();
-
-                _dbContext.Vacina.Update(vacina);
-                await _dbContext.SaveChangesAsync();
-
-                return Ok();
+                await _context.SaveChangesAsync();
             }
-            catch
+            catch (DbUpdateConcurrencyException)
             {
-                return BadRequest();
+                if (!_context.Vacinas.Any(e => e.VacinaId == id))
+                {
+                    return NotFound();
+                }
             }
+            return Ok();
         }
 
-        [HttpDelete]
-        [Route("excluir/{id}")]
-        public async Task<ActionResult> Excluir(int id)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
         {
-            if (_dbContext is null) return NotFound();
-            if (_dbContext.Vacina is null) return NotFound();
+            var vacina = await _context.Vacinas.Include(v => v.Animal).FirstOrDefaultAsync(v => v.VacinaId == id);
+            if (vacina == null)
+            {
+                return NotFound();
+            }
+            vacina.Animal = null;
+            _context.Vacinas.Remove(vacina);
+            await _context.SaveChangesAsync();
 
-            var vacinaTemp = await _dbContext.Vacina.FindAsync(id);
-            if (vacinaTemp is null) return NotFound();
-
-            _dbContext.Remove(vacinaTemp);
-            await _dbContext.SaveChangesAsync();
-
-            return Ok();
+            return NoContent();
         }
     }
 }

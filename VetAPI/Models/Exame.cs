@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 namespace VetAPI.Models;
 
 public class Exame
@@ -10,8 +9,7 @@ public class Exame
         Ultrassonografia,
         Urinalise
     }
-    [Key]
-    public int? Id { get; set;}
+    public int? ExameId { get; set;}
     public TipoExam? TipoExame { get; set;}
     public DateTime? Data { get; set;}
     public string? Observacao {get; set;}
