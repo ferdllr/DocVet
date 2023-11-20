@@ -5,8 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace VetAPI.Controller
 {
-    [Route("Contato")]
     [ApiController]
+    [Route("[controller]")]
     public class ContatoController: ControllerBase
     {
         private AppDbContext? _context;
@@ -17,13 +17,15 @@ namespace VetAPI.Controller
         }
         
         [HttpGet]
+        [Route("listar")]
         public async Task<ActionResult<IEnumerable<Contato>>> Get()
         {
             if(_context.Contatos is null) return NotFound();
             return await _context.Contatos.ToListAsync();
         }
 
-    [HttpGet("{id}")]
+    [HttpGet]
+    [Route("buscar/{id}")]
     public async Task<IActionResult> Get(int id)
     {
         var contato = await _context.Contatos
@@ -38,6 +40,7 @@ namespace VetAPI.Controller
     }
 
     [HttpPost]
+    [Route("cadastrar")]
     public async Task<IActionResult> Post([FromBody] Contato contato)
     {
         if(_context.Contatos is null) return NotFound();
@@ -46,6 +49,7 @@ namespace VetAPI.Controller
         return Ok(contato);
     }
     [HttpPut]
+    [Route("alterar/{id}")]
     public async Task<IActionResult> Put(int id, [FromBody] Contato contato)
     {
         if(_context.Contatos is null) return NotFound();
@@ -66,7 +70,8 @@ namespace VetAPI.Controller
         }
         return Ok();
     }
-    [HttpDelete("{id}")]
+    [HttpDelete]
+    [Route("excluir/{id}")]
     public async Task<IActionResult> Delete(int id)
     {
         var contato = await _context.Contatos.FindAsync(id);

@@ -6,8 +6,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace VetAPI.Controller
 {
-    [Route("Animal")]
     [ApiController]
+    [Route("[controller]")]
     public class AnimalController : ControllerBase
     {
         private readonly AppDbContext _context;
@@ -18,13 +18,15 @@ namespace VetAPI.Controller
         }
 
         [HttpGet]
+        [Route("listar")]
         public async Task<ActionResult<IEnumerable<Animal>>> Get()
         {
             if (_context.Animais is null) return NotFound();
             return await _context.Animais.ToListAsync();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("buscar/{id}")]
         public async Task<IActionResult> Get(int id)
         {
             var animal = await _context.Animais
@@ -39,6 +41,7 @@ namespace VetAPI.Controller
         }
 
         [HttpPost]
+        [Route("cadastrar")]
         public async Task<IActionResult> Post([FromBody] Animal animal)
         {
             if (_context.Animais is null) return NotFound();
@@ -47,7 +50,8 @@ namespace VetAPI.Controller
             return Ok(animal);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
+        [Route("alterar/{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] Animal animal)
         {
             if (_context.Animais is null) return NotFound();
@@ -68,7 +72,8 @@ namespace VetAPI.Controller
             return Ok();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
+        [Route("excluir/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             var animal = await _context.Animais.FindAsync(id);

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace VetAPI.Controller
 {
-    [Route("Tutor")]
+    [Route("[controller]")]
     [ApiController]
     public class TutorController : ControllerBase
     {
@@ -17,6 +17,7 @@ namespace VetAPI.Controller
         }
 
         [HttpPost]
+        [Route("cadastrar")]
         public async Task<IActionResult> Post([FromBody] Tutor tutor)
         {
             if (_context.Tutors is null) return NotFound();
@@ -29,13 +30,15 @@ namespace VetAPI.Controller
         }
 
         [HttpGet]
+        [Route("listar")]
         public async Task<ActionResult<IEnumerable<Tutor>>> Get()
         {
             if(_context.Tutors is null) return NotFound();
             return await _context.Tutors.Include(t => t.Contato).Include(t => t.Animais).ToListAsync();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("buscar/{id}")]
         public async Task<IActionResult> Get(int id)
         {
             var tutor = await _context.Tutors
@@ -51,7 +54,8 @@ namespace VetAPI.Controller
             return Ok(tutor);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
+        [Route("alterar/{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] Tutor tutor)
         {
             if (id != tutor.TutorId)
@@ -81,7 +85,8 @@ namespace VetAPI.Controller
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
+        [Route("excluir/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             var tutor = await _context.Tutors

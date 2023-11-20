@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace VetAPI.Controller
 {
-    [Route("Exame")]
+    [Route("[controller]")]
     [ApiController]
     public class ExameController : ControllerBase
     {
@@ -17,13 +17,15 @@ namespace VetAPI.Controller
         }
 
         [HttpGet]
+        [Route("cadastrar")]
         public async Task<ActionResult<IEnumerable<Exame>>> Get()
         {
             if (_context.Exames is null) return NotFound();
             return await _context.Exames.ToListAsync();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("buscar/{id}")]
         public async Task<IActionResult> Get(int id)
         {
             var exame = await _context.Exames
@@ -38,6 +40,7 @@ namespace VetAPI.Controller
         }
 
         [HttpPost]
+        [Route("cadastrar")]
         public async Task<IActionResult> Post([FromBody] Exame exame)
         {
             if (_context.Exames is null) return NotFound();
@@ -46,7 +49,8 @@ namespace VetAPI.Controller
             return Ok(exame);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
+        [Route("alterar/{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] Exame exame)
         {
             if (_context.Exames is null) return NotFound();
@@ -67,7 +71,8 @@ namespace VetAPI.Controller
             return Ok();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
+        [Route("excluir/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             var exame = await _context.Exames.FindAsync(id);

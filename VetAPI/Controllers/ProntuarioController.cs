@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace VetAPI.Controller
 {
-    [Route("Prontuario")]
+    [Route("[controller]")]
     [ApiController]
     public class ProntuarioController : ControllerBase
     {
@@ -17,13 +17,15 @@ namespace VetAPI.Controller
         }
 
         [HttpGet]
+        [Route("listar")]
         public async Task<ActionResult<IEnumerable<Prontuario>>> Get()
         {
             if (_context.Prontuarios is null) return NotFound();
             return await _context.Prontuarios.Include(p => p.Animal).ToListAsync();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("buscar/{id}")]
         public async Task<IActionResult> Get(int id)
         {
             var prontuario = await _context.Prontuarios.Include(p => p.Animal).FirstOrDefaultAsync(p => p.ProntuarioId == id);
@@ -37,6 +39,7 @@ namespace VetAPI.Controller
         }
 
         [HttpPost]
+        [Route("cadastrar")]
         public async Task<IActionResult> Post([FromBody] Prontuario prontuario)
         {
             if (_context.Prontuarios is null) return NotFound();
@@ -47,7 +50,8 @@ namespace VetAPI.Controller
             return Ok(prontuario);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
+        [Route("alterar/{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] Prontuario prontuario)
         {
             if (_context.Prontuarios is null) return NotFound();
@@ -71,7 +75,8 @@ namespace VetAPI.Controller
             return Ok();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
+        [Route("excluir/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             var prontuario = await _context.Prontuarios

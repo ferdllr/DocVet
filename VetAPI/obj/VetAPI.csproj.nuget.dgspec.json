@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\antigo\\DocVet\\VetAPI\\VetAPI.csproj": {}
+    "D:\\DocVet\\DocVet\\VetAPI\\VetAPI.csproj": {}
   },
   "projects": {
-    "D:\\antigo\\DocVet\\VetAPI\\VetAPI.csproj": {
+    "D:\\DocVet\\DocVet\\VetAPI\\VetAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\antigo\\DocVet\\VetAPI\\VetAPI.csproj",
+        "projectUniqueName": "D:\\DocVet\\DocVet\\VetAPI\\VetAPI.csproj",
         "projectName": "VetAPI",
-        "projectPath": "D:\\antigo\\DocVet\\VetAPI\\VetAPI.csproj",
+        "projectPath": "D:\\DocVet\\DocVet\\VetAPI\\VetAPI.csproj",
         "packagesPath": "C:\\Users\\ferna\\.nuget\\packages\\",
-        "outputPath": "D:\\antigo\\DocVet\\VetAPI\\obj\\",
+        "outputPath": "D:\\DocVet\\DocVet\\VetAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ferna\\AppData\\Roaming\\NuGet\\NuGet.Config",

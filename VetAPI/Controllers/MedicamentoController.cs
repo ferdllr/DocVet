@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace VetAPI.Controller
 {
-    [Route("Medicamento")]
+    [Route("[controller]")]
     [ApiController]
     public class MedicamentoController : ControllerBase
     {
@@ -17,13 +17,15 @@ namespace VetAPI.Controller
         }
 
         [HttpGet]
+        [Route("listar")]
         public async Task<ActionResult<IEnumerable<Medicamento>>> Get()
         {
             if (_context.Medicamentos is null) return NotFound();
             return await _context.Medicamentos.ToListAsync();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("buscar/{id}")]
         public async Task<IActionResult> Get(int id)
         {
             var medicamento = await _context.Medicamentos
@@ -38,6 +40,7 @@ namespace VetAPI.Controller
         }
 
         [HttpPost]
+        [Route("cadastrar")]
         public async Task<IActionResult> Post([FromBody] Medicamento medicamento)
         {
             if (_context.Medicamentos is null) return NotFound();
@@ -46,7 +49,8 @@ namespace VetAPI.Controller
             return Ok(medicamento);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
+        [Route("alterar/{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] Medicamento medicamento)
         {
             if (_context.Medicamentos is null) return NotFound();
@@ -67,7 +71,8 @@ namespace VetAPI.Controller
             return Ok();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
+        [Route("excluir/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             var medicamento = await _context.Medicamentos.FindAsync(id);

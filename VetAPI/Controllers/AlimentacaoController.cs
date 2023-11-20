@@ -5,8 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace VetAPI.Controller
 {
-    [Route("Alimentacao")]
     [ApiController]
+    [Route("[controller]")]
     public class AlimentacaoController : ControllerBase
     {
         private readonly AppDbContext _context;
@@ -17,13 +17,15 @@ namespace VetAPI.Controller
         }
 
         [HttpGet]
+        [Route("listar")]
         public async Task<ActionResult<IEnumerable<Alimentacao>>> Get()
         {
             if (_context.Alimentacaos is null) return NotFound();
             return await _context.Alimentacaos.Include(a => a.Animal).ToListAsync();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("buscar/{id}")]
         public async Task<IActionResult> Get(int id)
         {
             var alimentacao = await _context.Alimentacaos
@@ -39,6 +41,7 @@ namespace VetAPI.Controller
         }
 
         [HttpPost]
+        [Route("cadastrar")]
         public async Task<IActionResult> Post([FromBody] Alimentacao alimentacao)
         {
             if (_context.Alimentacaos is null) return NotFound();
@@ -49,7 +52,8 @@ namespace VetAPI.Controller
             return Ok(alimentacao);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
+        [Route("alterar/{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] Alimentacao alimentacao)
         {
             if (_context.Alimentacaos is null) return NotFound();
@@ -73,7 +77,8 @@ namespace VetAPI.Controller
             return Ok();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
+        [Route("excluir/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             var alimentacao = await _context.Alimentacaos.Include(a => a.Animal).FirstOrDefaultAsync(a => a.AlimentacaoId == id);

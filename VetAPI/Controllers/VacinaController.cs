@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace VetAPI.Controller
 {
-    [Route("Vacina")]
+    [Route("[controller]")]
     [ApiController]
     public class VacinaController : ControllerBase
     {
@@ -17,13 +17,15 @@ namespace VetAPI.Controller
         }
 
         [HttpGet]
+        [Route("listar")]
         public async Task<ActionResult<IEnumerable<Vacina>>> Get()
         {
             if (_context.Vacinas is null) return NotFound();
             return await _context.Vacinas.Include(v => v.Animal).ToListAsync();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("buscar/{id}")]
         public async Task<IActionResult> Get(int id)
         {
             var vacina = await _context.Vacinas
@@ -39,6 +41,7 @@ namespace VetAPI.Controller
         }
 
         [HttpPost]
+        [Route("cadastrar")]
         public async Task<IActionResult> Post([FromBody] Vacina vacina)
         {
             if (_context.Vacinas is null) return NotFound();
@@ -49,7 +52,8 @@ namespace VetAPI.Controller
             return Ok(vacina);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
+        [Route("alterar/{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] Vacina vacina)
         {
             if (_context.Vacinas is null) return NotFound();
@@ -73,7 +77,8 @@ namespace VetAPI.Controller
             return Ok();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
+        [Route("excluir/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             var vacina = await _context.Vacinas.Include(v => v.Animal).FirstOrDefaultAsync(v => v.VacinaId == id);

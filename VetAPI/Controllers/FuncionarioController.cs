@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace VetAPI.Controller
 {
-    [Route("Funcionario")]
+    [Route("[controller]")]
     [ApiController]
     public class FuncionarioController : ControllerBase
 {
@@ -17,6 +17,7 @@ namespace VetAPI.Controller
     }
 
     [HttpPost]
+    [Route("cadastrar")]
     public async Task<IActionResult> Post([FromBody] Funcionario funcionario)
     {
         if(_context.Funcionarios is null) return NotFound();
@@ -27,13 +28,15 @@ namespace VetAPI.Controller
         return Ok(funcionario);
     }
     [HttpGet]
+    [Route("listar")]
     public async Task<ActionResult<IEnumerable<Funcionario>>> Get()
     {
         if(_context.Funcionarios is null) return NotFound();
         return await _context.Funcionarios.Include(f => f.Contato).ToListAsync();
     }
 
-    [HttpGet("{id}")]
+    [HttpGet]
+    [Route("buscar/{id}")]
     public async Task<IActionResult> Get(int id)
     {
         var funcionario = await _context.Funcionarios
@@ -48,7 +51,8 @@ namespace VetAPI.Controller
         return Ok(funcionario);
     }
 
-    [HttpPut("{id}")]
+    [HttpPut]
+    [Route("alterar/{id}")]
     public async Task<IActionResult> Put(int id, [FromBody] Funcionario funcionario)
     {
         if (id != funcionario.FuncionarioId)
@@ -76,7 +80,8 @@ namespace VetAPI.Controller
         return NoContent();
     }
 
-    [HttpDelete("{id}")]
+    [HttpDelete]
+    [Route("excluir/{id}")]
     public async Task<IActionResult> Delete(int id)
     {
         var funcionario = await _context.Funcionarios.FindAsync(id);
