@@ -11,8 +11,8 @@ using VetAPI.Data;
 namespace VetAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231012223730_newdb")]
-    partial class newdb
+    [Migration("20231121132529_MoreMigrationsTen")]
+    partial class MoreMigrationsTen
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -57,8 +57,8 @@ namespace VetAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("EspecieAnimal")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("EspecieAnimal")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Idade")
                         .HasColumnType("INTEGER");
@@ -72,8 +72,8 @@ namespace VetAPI.Migrations
                     b.Property<string>("Raca")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("SexoDoAnimal")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("SexoDoAnimal")
+                        .HasColumnType("TEXT");
 
                     b.Property<int?>("TutorId")
                         .HasColumnType("INTEGER");
@@ -111,8 +111,8 @@ namespace VetAPI.Migrations
                     b.Property<string>("Descricao")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("GravidadeDoAnimal")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("GravidadeDoAnimal")
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("Horario")
                         .HasColumnType("TEXT");
@@ -139,8 +139,8 @@ namespace VetAPI.Migrations
                     b.Property<string>("Observacao")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("TipoExame")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("TipoExame")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("ExameId");
 
@@ -162,8 +162,8 @@ namespace VetAPI.Migrations
                     b.Property<string>("Nome")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("TipoFuncionario")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("TipoFuncionario")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("FuncionarioId");
 
@@ -201,11 +201,11 @@ namespace VetAPI.Migrations
                     b.Property<int?>("ProntuarioId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("TarjaMedicamento")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("TarjaMedicamento")
+                        .HasColumnType("TEXT");
 
-                    b.Property<int>("TipoMedicamento")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("TipoMedicamento")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("MedicamentoId");
 
@@ -226,8 +226,8 @@ namespace VetAPI.Migrations
                     b.Property<string>("Nome")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("TipoProcedimento")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("TipoProcedimento")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("ProcedimentoId");
 
@@ -264,18 +264,16 @@ namespace VetAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("ContatoId")
+                    b.Property<int?>("ContatoId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Cpf")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("DataNascimento")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Nome")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("TutorId");
@@ -372,9 +370,7 @@ namespace VetAPI.Migrations
                 {
                     b.HasOne("VetAPI.Models.Contato", "Contato")
                         .WithMany()
-                        .HasForeignKey("ContatoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ContatoId");
 
                     b.Navigation("Contato");
                 });

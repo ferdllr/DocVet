@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace VetAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class newdb : Migration
+    public partial class InitialMigrations : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -31,7 +31,7 @@ namespace VetAPI.Migrations
                 {
                     ExameId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    TipoExame = table.Column<int>(type: "INTEGER", nullable: true),
+                    TipoExame = table.Column<string>(type: "TEXT", nullable: true),
                     Data = table.Column<DateTime>(type: "TEXT", nullable: true),
                     Observacao = table.Column<string>(type: "TEXT", nullable: true)
                 },
@@ -59,7 +59,7 @@ namespace VetAPI.Migrations
                     ProcedimentoId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Nome = table.Column<string>(type: "TEXT", nullable: true),
-                    TipoProcedimento = table.Column<int>(type: "INTEGER", nullable: true),
+                    TipoProcedimento = table.Column<string>(type: "TEXT", nullable: true),
                     Descricao = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
@@ -76,7 +76,7 @@ namespace VetAPI.Migrations
                     Nome = table.Column<string>(type: "TEXT", nullable: true),
                     Cpf = table.Column<string>(type: "TEXT", nullable: true),
                     ContatoId = table.Column<int>(type: "INTEGER", nullable: true),
-                    TipoFuncionario = table.Column<int>(type: "INTEGER", nullable: false)
+                    TipoFuncionario = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -94,10 +94,10 @@ namespace VetAPI.Migrations
                 {
                     TutorId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Nome = table.Column<string>(type: "TEXT", nullable: false),
-                    Cpf = table.Column<string>(type: "TEXT", nullable: false),
+                    Nome = table.Column<string>(type: "TEXT", nullable: true),
+                    Cpf = table.Column<string>(type: "TEXT", nullable: true),
                     DataNascimento = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    ContatoId = table.Column<int>(type: "INTEGER", nullable: false)
+                    ContatoId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -106,8 +106,7 @@ namespace VetAPI.Migrations
                         name: "FK_Tutors_Contatos_ContatoId",
                         column: x => x.ContatoId,
                         principalTable: "Contatos",
-                        principalColumn: "ContatoId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ContatoId");
                 });
 
             migrationBuilder.CreateTable(
@@ -117,10 +116,10 @@ namespace VetAPI.Migrations
                     AnimalId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Nome = table.Column<string>(type: "TEXT", nullable: true),
-                    EspecieAnimal = table.Column<int>(type: "INTEGER", nullable: false),
+                    EspecieAnimal = table.Column<string>(type: "TEXT", nullable: true),
                     Raca = table.Column<string>(type: "TEXT", nullable: true),
                     Idade = table.Column<int>(type: "INTEGER", nullable: false),
-                    SexoDoAnimal = table.Column<int>(type: "INTEGER", nullable: false),
+                    SexoDoAnimal = table.Column<string>(type: "TEXT", nullable: true),
                     Peso = table.Column<float>(type: "REAL", nullable: false),
                     TutorId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
@@ -211,7 +210,7 @@ namespace VetAPI.Migrations
                 {
                     EstadoDoAnimalId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    GravidadeDoAnimal = table.Column<int>(type: "INTEGER", nullable: false),
+                    GravidadeDoAnimal = table.Column<string>(type: "TEXT", nullable: true),
                     Horario = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Descricao = table.Column<string>(type: "TEXT", nullable: true),
                     ProntuarioId = table.Column<int>(type: "INTEGER", nullable: true)
@@ -233,9 +232,9 @@ namespace VetAPI.Migrations
                     MedicamentoId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Nome = table.Column<string>(type: "TEXT", nullable: true),
-                    TipoMedicamento = table.Column<int>(type: "INTEGER", nullable: false),
+                    TipoMedicamento = table.Column<string>(type: "TEXT", nullable: true),
                     Miligrama = table.Column<float>(type: "REAL", nullable: false),
-                    TarjaMedicamento = table.Column<int>(type: "INTEGER", nullable: false),
+                    TarjaMedicamento = table.Column<string>(type: "TEXT", nullable: true),
                     Ciclo = table.Column<DateTime>(type: "TEXT", nullable: false),
                     ProntuarioId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
