@@ -15,10 +15,26 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { AnimaisService } from './animais.service';
 import { AnimaisComponent } from './components/animais/animais.component';
 
+import { TutoresService } from './tutores.service';
+import { TutoresComponent } from './components/tutores/tutores.component';
+
+import { ProcedimentosComponent } from './components/procedimentos/procedimentos.component';
+import { ProcedimentosService } from './procedimentos.service';
+
+import { FuncionariosService } from './funcionarios.service';
+import { FuncionariosComponent } from './components/funcionarios/funcionarios.component';
+
+import { AlimentacoesService } from './alimentacoes.service';
+import { AlimentacoesComponent } from './components/alimentacoes/alimentacoes.component';
+
 @NgModule({
   declarations: [
     AppComponent,
-    AnimaisComponent
+    AnimaisComponent,
+    TutoresComponent,
+    ProcedimentosComponent,
+    FuncionariosComponent,
+    AlimentacoesComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +46,12 @@ import { AnimaisComponent } from './components/animais/animais.component';
     BrowserAnimationsModule
   ],
   providers: [
-    HttpClientModule
+    HttpClientModule,
+    AnimaisService,
+    TutoresService,
+    ProcedimentosService,
+    FuncionariosService,
+    AlimentacoesService
   ],
   bootstrap: [AppComponent]
 })

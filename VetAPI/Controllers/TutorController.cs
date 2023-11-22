@@ -21,8 +21,7 @@ namespace VetAPI.Controller
         public async Task<IActionResult> Post([FromBody] Tutor tutor)
         {
             if (_context.Tutors is null) return NotFound();
-            Contato? contatoTemp = await _context.Contatos.FindAsync(tutor.Contato.ContatoId);
-            if(contatoTemp != null) tutor.Contato = contatoTemp;
+                        
             _context.Tutors.Add(tutor);
             await _context.SaveChangesAsync();
 
@@ -34,7 +33,7 @@ namespace VetAPI.Controller
         public async Task<ActionResult<IEnumerable<Tutor>>> Get()
         {
             if(_context.Tutors is null) return NotFound();
-            return await _context.Tutors.Include(t => t.Contato).Include(t => t.Animais).ToListAsync();
+            return await _context.Tutors.Include(t => t.Animais).ToListAsync();
         }
 
         [HttpGet]
@@ -42,7 +41,6 @@ namespace VetAPI.Controller
         public async Task<IActionResult> Get(int id)
         {
             var tutor = await _context.Tutors
-            .Include(t => t.Contato)
             .Include(t => t.Animais)
             .FirstOrDefaultAsync(t => t.TutorId == id);
 
@@ -63,12 +61,8 @@ namespace VetAPI.Controller
                 return BadRequest();
             }
 
-            Contato? contatoTemp = await _context.Contatos.FindAsync(tutor.Contato.ContatoId);
-            if(contatoTemp != null) tutor.Contato = contatoTemp;
-
 
             _context.Entry(tutor).State = EntityState.Modified;
-            _context.Entry(tutor.Contato).State = EntityState.Modified;
 
             try
             {
@@ -91,13 +85,11 @@ namespace VetAPI.Controller
         {
             var tutor = await _context.Tutors
                 .Include(t => t.Animais)
-                .Include(t => t.Contato)
                 .FirstOrDefaultAsync(t => t.TutorId == id);
 
             if (tutor == null) return NotFound("Tutor não encontrado.");
 
             tutor.Animais = null;
-            tutor.Contato = null;
             _context.Tutors.Remove(tutor);
             await _context.SaveChangesAsync();
 

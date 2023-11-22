@@ -3,7 +3,8 @@ namespace VetAPI.Models
     public class Alimentacao
     {
         public int AlimentacaoId { get; set; }
-        public DateTime DataHoraAlimentacao { get; set; }
+        public DateTime DataAlimentacao { get; set; }
+        public string? HoraAlimentacao { get; set; }
         public string? TipoAlimento { get; set; }
         public decimal QuantidadeFornecida { get; set; }
         public string? FrequenciaRefeicoes { get; set; }

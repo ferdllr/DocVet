@@ -3,8 +3,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Observer } from 'rxjs';
 import { AnimaisService } from 'src/app/animais.service';
 import { Animal } from 'src/app/Animal';
-//import { TutoresService } from 'src/app/tutores.service';
-//import { Tutor } from 'src/app/Tutor';
+import { TutoresService } from 'src/app/tutores.service';
+import { Tutor } from 'src/app/Tutor';
 
 @Component({
   selector: 'app-animais',
@@ -14,21 +14,22 @@ import { Animal } from 'src/app/Animal';
 export class AnimaisComponent implements OnInit {
   formulario: any;
   tituloFormulario: string = '';
-  //tutores: Array<Tutor> | undefined;
+  tutores: Array<Tutor> | undefined;
 
-  constructor(private AnimaisService : AnimaisService/*, private TutoresService : TutoresService*/) { }
+  constructor(private AnimaisService : AnimaisService, private TutoresService : TutoresService) { }
 
   ngOnInit(): void {
     this.tituloFormulario = 'Novo Animal';
 
-    /*this.tutoresService.listar().subscribe(tutores => {
+    this.TutoresService.listar().subscribe(tutores => {
       this.tutores = tutores;
       if (this.tutores && this.tutores.length > 0) {
-        this.formulario.get('tutorId')?.setValue(this.tutores[0].id);
+        this.formulario.get('tutorId')?.setValue(this.tutores[0].tutorId);
       }
-    });*/
+    }); //??
 
     this.formulario = new FormGroup({
+      animalId: new FormControl(null),
       nome: new FormControl(null),
       tutorId: new FormControl(null),
       especieAnimal: new FormControl(null),

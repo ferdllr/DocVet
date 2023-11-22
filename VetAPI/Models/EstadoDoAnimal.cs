@@ -4,6 +4,6 @@ public class EstadoDoAnimal
 {
     public int EstadoDoAnimalId { get; set; }
     public string? GravidadeDoAnimal { get; set; }
-    public DateTime Horario { get; set; }
+    public string? Horario { get; set; }
     public string? Descricao { get; set; }
 }

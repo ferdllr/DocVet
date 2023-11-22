@@ -5,19 +5,21 @@
         <h6>{{ tituloFormulario }}</h6>
         <form [formGroup]="formulario" (ngSubmit)="enviarFormulario()">
           <div class="form-group">
+            <label>Id</label>
+            <input type="text" class="form-control form-control-sm" formControlName="animalId"/>
+          </div>
+          <div class="form-group">
             <label>Nome</label>
             <input type="text" class="form-control form-control-sm" formControlName="nome"/>
           </div>
-          <!--
           <div class="form-group">
             <label>Tutor</label>
             <select class="form-control form-control-sm" formControlName="tutorId">
-              <option *ngFor="let tutor of tutores" [value]="tutor.id">
-                {{ tutor.nome }}
+              <option *ngFor="let tutor of tutores" [value]="tutor.tutorId">
+                {{ tutor.nomeTutor }}
               </option>
             </select>
           </div>
-          -->
           <div class="form-group">
             <label>Especie</label>
             <input type="text" class="form-control form-control-sm" formControlName="especieAnimal"/>

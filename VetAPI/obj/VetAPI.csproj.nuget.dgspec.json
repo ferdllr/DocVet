@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Pichau\\Documents\\Dev\\DocVet\\VetAPI\\VetAPI.csproj": {}
+    "C:\\Users\\Pichau\\Documents\\Dev\\DocVet\\VetApi\\VetAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Pichau\\Documents\\Dev\\DocVet\\VetAPI\\VetAPI.csproj": {
+    "C:\\Users\\Pichau\\Documents\\Dev\\DocVet\\VetApi\\VetAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Pichau\\Documents\\Dev\\DocVet\\VetAPI\\VetAPI.csproj",
+        "projectUniqueName": "C:\\Users\\Pichau\\Documents\\Dev\\DocVet\\VetApi\\VetAPI.csproj",
         "projectName": "VetAPI",
-        "projectPath": "C:\\Users\\Pichau\\Documents\\Dev\\DocVet\\VetAPI\\VetAPI.csproj",
+        "projectPath": "C:\\Users\\Pichau\\Documents\\Dev\\DocVet\\VetApi\\VetAPI.csproj",
         "packagesPath": "C:\\Users\\Pichau\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Pichau\\Documents\\Dev\\DocVet\\VetAPI\\obj\\",
+        "outputPath": "C:\\Users\\Pichau\\Documents\\Dev\\DocVet\\VetApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Pichau\\AppData\\Roaming\\NuGet\\NuGet.Config",

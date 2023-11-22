@@ -21,8 +21,7 @@ namespace VetAPI.Controller
     public async Task<IActionResult> Post([FromBody] Funcionario funcionario)
     {
         if(_context.Funcionarios is null) return NotFound();
-        Contato? contatoTemp = await _context.Contatos.FindAsync(funcionario.Contato.ContatoId);
-        if(contatoTemp != null) funcionario.Contato = contatoTemp;
+
         _context.Funcionarios.Add(funcionario);
         await _context.SaveChangesAsync();
         return Ok(funcionario);
@@ -32,7 +31,7 @@ namespace VetAPI.Controller
     public async Task<ActionResult<IEnumerable<Funcionario>>> Get()
     {
         if(_context.Funcionarios is null) return NotFound();
-        return await _context.Funcionarios.Include(f => f.Contato).ToListAsync();
+        return await _context.Funcionarios.ToListAsync();
     }
 
     [HttpGet]
@@ -40,7 +39,6 @@ namespace VetAPI.Controller
     public async Task<IActionResult> Get(int id)
     {
         var funcionario = await _context.Funcionarios
-            .Include(f => f.Contato)
             .FirstOrDefaultAsync(f => f.FuncionarioId == id);
 
         if (funcionario == null)
@@ -59,11 +57,8 @@ namespace VetAPI.Controller
         {
             return BadRequest();
         }
-
-        Contato? contatoTemp = await _context.Contatos.FindAsync(funcionario.Contato.ContatoId);
-        if(contatoTemp != null) funcionario.Contato = contatoTemp;
-        _context.Entry(funcionario).State = EntityState.Modified;
-        _context.Entry(funcionario.Contato).State = EntityState.Modified;
+        
+        _context.Entry(funcionario).State = EntityState.Modified;        
 
         try
         {

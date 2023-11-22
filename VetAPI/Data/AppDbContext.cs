@@ -6,7 +6,6 @@ namespace VetAPI.Data
 {
     public class AppDbContext : DbContext
         {
-            public DbSet<Contato> Contatos { get; set; }
             public DbSet<Funcionario> Funcionarios{get; set;}
             public DbSet<Animal> Animais {get;set;}
             public DbSet<Tutor> Tutors {get;set;}
@@ -23,8 +22,7 @@ namespace VetAPI.Data
             optionsBuilder.UseSqlite("DataSource=Vetdb.db; Cache=Shared");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Contato>().HasKey(c => c.ContatoId);
+        {            
             modelBuilder.Entity<Funcionario>().HasKey(c => c.FuncionarioId);
             modelBuilder.Entity<Animal>().HasKey(c => c.AnimalId);
             modelBuilder.Entity<Tutor>().HasKey(c => c.TutorId);
