@@ -6021,19 +6021,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Pichau\\.nuget\\packages\\": {}
+    "C:\\Users\\ferna\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Pichau\\Documents\\Dev\\DocVet\\VetAPI\\VetAPI.csproj",
+      "projectUniqueName": "D:\\DocVet\\DocVet\\VetAPI\\VetAPI.csproj",
       "projectName": "VetAPI",
-      "projectPath": "C:\\Users\\Pichau\\Documents\\Dev\\DocVet\\VetAPI\\VetAPI.csproj",
-      "packagesPath": "C:\\Users\\Pichau\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Pichau\\Documents\\Dev\\DocVet\\VetAPI\\obj\\",
+      "projectPath": "D:\\DocVet\\DocVet\\VetAPI\\VetAPI.csproj",
+      "packagesPath": "C:\\Users\\ferna\\.nuget\\packages\\",
+      "outputPath": "D:\\DocVet\\DocVet\\VetAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Pichau\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ferna\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6109,7 +6109,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
       }
     }
   }

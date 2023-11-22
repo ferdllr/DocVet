@@ -45,8 +45,6 @@ namespace VetAPI.Controller
         public async Task<IActionResult> Post([FromBody] Alimentacao alimentacao)
         {
             if (_context.Alimentacaos is null) return NotFound();
-            var animalTemp = await _context.Animais.FindAsync(alimentacao.Animal.AnimalId);
-            if (animalTemp != null) alimentacao.Animal = animalTemp;
             _context.Alimentacaos.Add(alimentacao);
             await _context.SaveChangesAsync();
             return Ok(alimentacao);
