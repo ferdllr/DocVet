@@ -27,6 +27,9 @@ import { FuncionariosComponent } from './components/funcionarios/funcionarios.co
 import { AlimentacoesService } from './alimentacoes.service';
 import { AlimentacoesComponent } from './components/alimentacoes/alimentacoes.component';
 
+import { EstadosDosAnimaisService } from './estados-dos-animais.service';
+import { EstadosDosAnimaisComponent } from './components/estados-dos-animais/estados-dos-animais.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,7 +54,8 @@ import { AlimentacoesComponent } from './components/alimentacoes/alimentacoes.co
     TutoresService,
     ProcedimentosService,
     FuncionariosService,
-    AlimentacoesService
+    AlimentacoesService,
+    EstadosDosAnimaisService
   ],
   bootstrap: [AppComponent]
 })

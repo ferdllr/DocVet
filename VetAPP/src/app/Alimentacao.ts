@@ -8,12 +8,11 @@ export class Alimentacao{
     quantidadeFornecida: number = 0;
     frequenciaRefeicoes: string = '';
     observacoes: string = '';
-    animais: Animal[];
+    animal: Animal | undefined;
 
     constructor(alimentacaoId: number, dataAlimentacao: Date, horaAlimentacao: string) {
         this.alimentacaoId = alimentacaoId;
         this.dataAlimentacao = dataAlimentacao;
         this.horaAlimentacao = horaAlimentacao;
-        this.animais = [];
     }
 }

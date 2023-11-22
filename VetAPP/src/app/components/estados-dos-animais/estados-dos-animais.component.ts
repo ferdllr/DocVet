@@ -9,7 +9,7 @@ import { EstadoDoAnimal } from 'src/app/EstadoDoAnimal';
   templateUrl: './estados-dos-animais.component.html',
   styleUrls: ['./estados-dos-animais.component.css']
 })
-export class FuncionariosComponent implements OnInit {
+export class EstadosDosAnimaisComponent implements OnInit {
   formulario: any;
   tituloFormulario: string = '';
 
