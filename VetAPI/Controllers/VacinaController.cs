@@ -56,8 +56,7 @@ namespace VetAPI.Controller
         {
             if (_context.Vacinas is null) return NotFound();
             if (id != vacina.VacinaId) return BadRequest();
-            var animalTemp = await _context.Animais.FindAsync(vacina.Animal.AnimalId);
-            if (animalTemp != null) vacina.Animal = animalTemp;
+            
             _context.Entry(vacina).State = EntityState.Modified;
             _context.Entry(vacina.Animal).State = EntityState.Modified;
 

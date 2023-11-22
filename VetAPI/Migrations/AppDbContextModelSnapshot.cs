@@ -173,7 +173,7 @@ namespace VetAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("Ciclo")
+                    b.Property<string>("Ciclo")
                         .HasColumnType("TEXT");
 
                     b.Property<float>("Miligrama")

@@ -30,6 +30,16 @@ import { AlimentacoesComponent } from './components/alimentacoes/alimentacoes.co
 import { EstadosDosAnimaisService } from './estados-dos-animais.service';
 import { EstadosDosAnimaisComponent } from './components/estados-dos-animais/estados-dos-animais.component';
 
+import { ExamesComponent } from './components/exames/exames.component';
+import { ExamesService } from './exames.service';
+import { MedicamentosComponent } from './components/medicamentos/medicamentos.component';
+
+import { VacinasComponent } from './components/vacinas/vacinas.component';
+import { VacinasService } from './vacinas.service';
+import { ProntuariosComponent } from './components/prontuarios/prontuarios.component';
+import { ProntuariosService } from './prontuarios.service';
+import { HitoricosDosAnimaisComponent } from './components/hitoricos-dos-animais/hitoricos-dos-animais.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +47,13 @@ import { EstadosDosAnimaisComponent } from './components/estados-dos-animais/est
     TutoresComponent,
     ProcedimentosComponent,
     FuncionariosComponent,
-    AlimentacoesComponent
+    AlimentacoesComponent,
+    EstadosDosAnimaisComponent,
+    ExamesComponent,
+    MedicamentosComponent,
+    VacinasComponent,
+    ProntuariosComponent,
+    HitoricosDosAnimaisComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +71,10 @@ import { EstadosDosAnimaisComponent } from './components/estados-dos-animais/est
     ProcedimentosService,
     FuncionariosService,
     AlimentacoesService,
-    EstadosDosAnimaisService
+    EstadosDosAnimaisService,
+    ExamesService,
+    VacinasService,
+    ProntuariosService
   ],
   bootstrap: [AppComponent]
 })

@@ -7,6 +7,6 @@ public class Medicamento
     public string? TipoMedicamento { get; set; }
     public float Miligrama { get; set; }
     public string? TarjaMedicamento { get; set; }
-    public DateTime Ciclo { get; set; }
+    public string? Ciclo { get; set; }
 
 }
